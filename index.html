@@ -3,377 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediCare - Medical Education & Clinic Solutions</title>
+    <title>Sihatech | AI-Powered Medical Automation</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            50: '#f0fdfa',
-                            100: '#ccfbf1',
-                            500: '#14b8a6', // Teal
-                            600: '#0d9488',
-                            900: '#134e4a',
-                        }
-                    }
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9', // Cyber Blue
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        },
+                        accent: '#14b8a6' // Teal for health
+                    },
+                    fontFamily: { 'sans': ['Tajawal', 'sans-serif'] }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .rtl { direction: rtl; }
-        .ltr { direction: ltr; }
-        .transition-all { transition: all 0.3s ease; }
-        /* Smooth scrolling */
+        .gradient-text {
+            background: linear-gradient(90deg, #0ea5e9, #14b8a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ai-glow { box-shadow: 0 0 20px rgba(14, 165, 233, 0.15); }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
         html { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-white text-slate-800">
-    <div id="app" class="min-h-screen transition-all">
-        <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-20">
-                    <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="setView('home')">
-                        <div class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-primary-500/30">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12"/><path d="M6 12h12"/></svg>
-                        </div>
-                        <span class="font-bold text-xl tracking-tight text-slate-900">Medi<span class="text-primary-600">Care</span></span>
+<body class="bg-[#fcfdfe] text-slate-800">
+
+    <nav class="fixed w-full z-50 glass border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="setView('home')">
+                    <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg rotate-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
                     </div>
+                    <span class="font-black text-2xl tracking-tighter text-slate-900">Siha<span class="text-primary-600">Tech</span></span>
+                </div>
 
-                    <div class="hidden md:flex items-center gap-8">
-                        <button onclick="setView('home')" id="nav-home" class="text-slate-900 font-medium text-sm transition-colors hover:text-primary-600">الرئيسية</button>
-                        <a href="#features" id="nav-features" class="text-slate-500 hover:text-primary-600 transition-colors font-medium text-sm">الحلول</a>
-                        <a href="#services" id="nav-services" class="text-slate-500 hover:text-primary-600 transition-colors font-medium text-sm">العيادات</a>
-                        <button onclick="setView('contact')" id="nav-contact" class="text-slate-500 hover:text-primary-600 transition-colors font-medium text-sm">تواصل معنا</button>
-                        
-                        <div class="flex items-center border border-slate-200 rounded-full px-1 p-1 bg-slate-50">
-                            <button onclick="setLang('en')" class="lang-btn en px-3 py-1 rounded-full text-xs font-bold uppercase transition-all text-slate-400 hover:text-primary-600">EN</button>
-                            <button onclick="setLang('ar')" class="lang-btn ar px-3 py-1 rounded-full text-xs font-bold uppercase transition-all bg-white text-primary-600 shadow-sm">AR</button>
-                            <button onclick="setLang('fr')" class="lang-btn fr px-3 py-1 rounded-full text-xs font-bold uppercase transition-all text-slate-400 hover:text-primary-600">FR</button>
-                        </div>
-
-                        <button class="bg-primary-600 text-white px-6 py-2.5 rounded-full font-medium text-sm hover:bg-primary-900 transition-all shadow-lg shadow-primary-600/20" id="nav-cta">
-                            احجز استشارة
-                        </button>
-                    </div>
-
-                    <div class="md:hidden flex items-center gap-4">
-                        <button onclick="toggleMenu()" class="text-slate-600 p-2 hover:bg-slate-50 rounded-lg">
-                            <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-                        </button>
+                <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+                    <button onclick="setView('home')" id="nav-home" class="text-primary-600">الرئيسية</button>
+                    <a href="#features" class="text-slate-500 hover:text-primary-600">لماذا صحتك؟</a>
+                    <a href="#services" class="text-slate-500 hover:text-primary-600">الحلول الذكية</a>
+                    <button onclick="setView('contact')" class="bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-primary-600 transition-all shadow-md">اطلب عرض تجريبي</button>
+                    
+                    <div class="flex items-center bg-slate-100 rounded-full px-1 py-1">
+                        <button onclick="setLang('ar')" class="px-3 py-1 rounded-full text-xs font-bold bg-white shadow-sm">AR</button>
+                        <button onclick="setLang('en')" class="px-3 py-1 rounded-full text-xs font-bold text-slate-400">EN</button>
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 shadow-lg px-4 py-6 space-y-4">
-                <button onclick="setView('home'); toggleMenu();" class="block text-slate-600 font-medium w-full text-right hover:text-primary-600" id="m-nav-home">الرئيسية</button>
-                <a href="#features" class="block text-slate-600 font-medium hover:text-primary-600" onclick="toggleMenu()" id="m-nav-features">الحلول</a>
-                <a href="#services" class="block text-slate-600 font-medium hover:text-primary-600" onclick="toggleMenu()" id="m-nav-services">العيادات</a>
-                <button onclick="setView('contact'); toggleMenu();" class="block text-slate-600 font-medium w-full text-right hover:text-primary-600" id="m-nav-contact">تواصل معنا</button>
-            </div>
-        </nav>
+        </div>
+    </nav>
 
-        <main id="main-content">
-            <div id="home-view">
-                <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden">
-                    <div class="absolute -top-20 -right-20 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-50 -z-10"></div>
-                    <div class="absolute top-40 -left-20 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-50 -z-10"></div>
-
-                    <div class="text-center max-w-4xl mx-auto">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 text-primary-900 text-xs font-bold mb-8 uppercase tracking-wide border border-primary-100" id="hero-badge">
-                            منصة التعليم الطبي الذكية
-                        </div>
-                        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 leading-[1.2] mb-8 tracking-tight" id="hero-title">
-                            تمكين العيادات والمرضى من خلال المعرفة
+    <main id="main-content">
+        <div id="home-view">
+            <section class="pt-40 pb-20 px-4 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-1/2 h-full bg-primary-50/50 rounded-bl-[100px] -z-10"></div>
+                <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="text-right">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-primary-100 text-primary-600 text-xs font-bold mb-6">مستقبل الطب الذكي في تونس 🇹🇳</span>
+                        <h1 class="text-5xl md:text-6xl font-black text-slate-900 leading-tight mb-6" id="hero-title">
+                            ضاعف كفاءة عيادتك <br><span class="gradient-text">بذكاء Sihatech</span>
                         </h1>
-                        <p class="text-lg md:text-xl text-slate-500 mb-10 leading-relaxed max-w-2xl mx-auto font-light" id="hero-subtitle">
-                            نظام متكامل للتثقيف الصحي، إدارة المواعيد، والتواصل الآمن بين الطبيب والمريض. ارتقِ برعاية مرضاك اليوم.
+                        <p class="text-lg text-slate-500 mb-10 leading-relaxed font-light" id="hero-subtitle">
+                            أتمتة كاملة للمواعيد، ترويج ذكي لنشاطك الطبي، ونظام تعليمي متقدم لمرضاك باللهجة التونسية.
                         </p>
-                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <button class="w-full sm:w-auto px-8 py-4 bg-primary-600 text-white rounded-full font-medium hover:bg-primary-900 transition-all shadow-xl shadow-primary-600/20" id="hero-cta-primary">ابدأ رحلتك</button>
-                            <button onclick="setView('contact')" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-600 border border-slate-200 rounded-full font-medium hover:border-primary-400 hover:text-primary-600 transition-all" id="hero-cta-secondary">شاهد عرض توضيحي</button>
+                        <div class="flex flex-wrap gap-4 justify-start">
+                            <button class="px-8 py-4 bg-primary-600 text-white rounded-2xl font-bold shadow-xl shadow-primary-500/30 hover:-translate-y-1 transition-all">ابدأ الأتمتة الآن</button>
+                            <button class="px-8 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-slate-600 hover:bg-slate-50">تحدث مع مستشار</button>
                         </div>
                     </div>
-
-                    <div class="mt-24 border-t border-slate-100 pt-16 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-                        <div class="flex flex-col items-center gap-4 group">
-                            <div class="w-16 h-16 bg-white border border-slate-100 shadow-sm rounded-2xl flex items-center justify-center text-primary-600 group-hover:scale-110 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                            </div>
-                            <span class="font-bold text-slate-600 text-sm" id="feat-1">متابعة حيوية</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-4 group">
-                            <div class="w-16 h-16 bg-white border border-slate-100 shadow-sm rounded-2xl flex items-center justify-center text-primary-600 group-hover:scale-110 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-                            </div>
-                            <span class="font-bold text-slate-600 text-sm" id="feat-2">مكتبة طبية</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-4 group">
-                            <div class="w-16 h-16 bg-white border border-slate-100 shadow-sm rounded-2xl flex items-center justify-center text-primary-600 group-hover:scale-110 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                            </div>
-                            <span class="font-bold text-slate-600 text-sm" id="feat-3">استشارات فيديو</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-4 group">
-                            <div class="w-16 h-16 bg-white border border-slate-100 shadow-sm rounded-2xl flex items-center justify-center text-primary-600 group-hover:scale-110 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
-                            <span class="font-bold text-slate-600 text-sm" id="feat-4">إدارة المرضى</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="services" class="py-24 bg-slate-50 border-t border-slate-100">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="mb-16 text-center md:text-right">
-                            <h2 class="text-3xl font-bold text-slate-900 mb-4" id="serv-title">باقات العيادات والمراكز</h2>
-                            <p class="text-slate-500 max-w-2xl font-light mx-auto md:mx-0" id="serv-subtitle">حلول مرنة تناسب العيادات الخاصة، المراكز الطبية، والمستشفيات التعليمية.</p>
-                        </div>
-                        <div class="grid lg:grid-cols-2 gap-8">
-                            <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-200/50 hover:border-primary-500 transition-all duration-300 relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-full h-1 bg-primary-200"></div>
-                                <h3 class="text-2xl font-bold text-slate-900" id="serv-m-title">العيادة الرقمية</h3>
-                                <p class="text-primary-600 text-sm font-bold mt-2 uppercase tracking-wider" id="serv-m-price">للأطباء المستقلين</p>
-                                <p class="text-slate-500 my-6 text-base leading-relaxed" id="serv-m-desc">مثالية للأطباء الذين يرغبون في تقديم محتوى تعليمي ومتابعة مرضاهم عن بعد.</p>
-                                <ul class="space-y-4 mb-8 text-sm text-slate-600" id="serv-m-list">
-                                    <li class="flex items-center gap-3"><span class="text-primary-500">✓</span> ملفات مرضى إلكترونية</li>
-                                    <li class="flex items-center gap-3"><span class="text-primary-500">✓</span> مكتبة فيديو تعليمية</li>
-                                    <li class="flex items-center gap-3"><span class="text-primary-500">✓</span> نظام حجز مواعيد ذكي</li>
-                                </ul>
-                                <button class="w-full py-4 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-slate-800 transition-all" id="serv-m-cta">ابدأ التجربة المجانية</button>
-                            </div>
-                            <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-200/50 hover:border-primary-500 transition-all duration-300 relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-full h-1 bg-primary-600"></div>
-                                <h3 class="text-2xl font-bold text-slate-900" id="serv-s-title">المؤسسات الطبية</h3>
-                                <p class="text-primary-600 text-sm font-bold mt-2 uppercase tracking-wider" id="serv-s-price">للمستشفيات والمراكز</p>
-                                <p class="text-slate-500 my-6 text-base leading-relaxed" id="serv-s-desc">حلول متقدمة للتعليم الطبي المستمر، إدارة الأقسام، وتحليلات بيانات المرضى.</p>
-                                <ul class="space-y-4 mb-8 text-sm text-slate-600" id="serv-s-list">
-                                    <li class="flex items-center gap-3"><span class="text-primary-500">✓</span> بوابة تعليمية للموظفين والمرضى</li>
-                                    <li class="flex items-center gap-3"><span class="text-primary-500">✓</span> تكامل مع أنظمة HIS</li>
-                                    <li class="flex items-center gap-3"><span class="text-primary-500">✓</span> دعم فني وتخصيص كامل</li>
-                                </ul>
-                                <button class="w-full py-4 bg-primary-600 text-white rounded-xl font-medium text-sm hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/20" id="serv-s-cta">تواصل مع المبيعات</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <div id="contact-view" class="hidden">
-                <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-[80vh]">
-                    <div class="grid md:grid-cols-2 gap-16">
-                        <div>
-                            <span class="text-primary-600 font-bold tracking-wider text-xs uppercase mb-2 block">الدعم والمبيعات</span>
-                            <h1 class="text-4xl font-bold text-slate-900 mb-6" id="con-title">تواصل معنا</h1>
-                            <p class="text-slate-500 mb-12 text-lg font-light leading-relaxed" id="con-subtitle">فريقنا الطبي والتقني جاهز للإجابة على استفساراتكم حول المنصة والخدمات التعليمية.</p>
-                            
-                            <div class="space-y-8">
-                                <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                    <div class="p-3 bg-white shadow-sm rounded-full text-primary-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
-                                    <div>
-                                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400 mb-1">البريد الإلكتروني</h4>
-                                        <p class="text-slate-900 font-medium dir-ltr text-right">contact@medicare.health</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                    <div class="p-3 bg-white shadow-sm rounded-full text-primary-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-                                    <div>
-                                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400 mb-1">للطوارئ التقنية</h4>
-                                        <p class="text-slate-900 font-medium dir-ltr text-right">+1 (555) 123-4567</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-2xl shadow-slate-200/50">
-                            <form id="contact-form" class="space-y-6" onsubmit="handleContact(event)">
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2" id="label-name">الاسم الكامل</label>
-                                    <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-primary-500 focus:bg-white transition-colors">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2" id="label-email">البريد الإلكتروني للعيادة</label>
-                                    <input type="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-primary-500 focus:bg-white transition-colors">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2" id="label-msg">تفاصيل الاستفسار</label>
-                                    <textarea rows="4" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-primary-500 focus:bg-white transition-colors resize-none"></textarea>
-                                </div>
-                                <button type="submit" class="w-full py-4 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary-600/20" id="btn-send">
-                                    إرسال الطلب
-                                </button>
-                            </form>
-                            <div id="form-success" class="hidden h-full flex flex-col items-center justify-center text-center py-12">
-                                <div class="w-20 h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-6 animate-bounce">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-slate-900 mb-2">تم الاستلام بنجاح</h3>
-                                <p class="text-slate-500" id="txt-success">سيقوم أحد مستشارينا الطبيين بالتواصل معك قريباً.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <footer class="bg-white text-slate-500 py-12 border-t border-slate-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="text-center md:text-right">
-                    <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
-                        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                        </div>
-                        <span class="font-bold text-lg text-slate-900">MediCare</span>
-                    </div>
-                    <p class="text-sm max-w-xs leading-relaxed" id="footer-desc">نلتزم بتحسين تجربة المريض من خلال التكنولوجيا والتعليم الطبي الموثوق.</p>
-                </div>
-                <div class="md:text-left text-center">
-                    <p class="text-sm font-medium text-slate-900 mb-2" id="footer-rights">© 2026 MediCare Health. جميع الحقوق محفوظة.</p>
-                    <div class="flex gap-4 justify-center md:justify-start text-xs text-slate-400">
-                        <a href="#" class="hover:text-primary-600 transition-colors">الخصوصية</a>
-                        <a href="#" class="hover:text-primary-600 transition-colors">الشروط</a>
-                        <a href="#" class="hover:text-primary-600 transition-colors">HIPAA</a>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-primary-500 rounded-3xl rotate-3 opacity-10"></div>
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" alt="Doctor using AI" class="rounded-3xl shadow-2xl relative z-10">
                     </div>
                 </div>
+            </section>
+
+            <section id="features" class="py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-3xl border border-slate-100 hover:border-primary-500 transition-all ai-glow">
+                        <div class="w-14 h-14 bg-blue-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">أتمتة إدارة المواعيد</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">نظام ذكي ينظم جدولك، يرسل تذكيرات تلقائية للمرضى، ويقلل من حالات الغياب بنسبة 40%.</p>
+                    </div>
+                    <div class="p-8 rounded-3xl border border-slate-100 hover:border-primary-500 transition-all ai-glow">
+                        <div class="w-14 h-14 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">تثقيف صحي بالدارجة</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">شارك فيديوهات تعليمية مخصصة لمرضاك باللهجة التونسية لضمان فهم أعمق لبروتوكول العلاج.</p>
+                    </div>
+                    <div class="p-8 rounded-3xl border border-slate-100 hover:border-primary-500 transition-all ai-glow">
+                        <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">ترويج النشاط الطبي</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">تحسين تواجدك الرقمي وجذب مرضى جدد من خلال تحليلات دقيقة لأداء عيادتك.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="py-24 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <h2 class="text-3xl font-black mb-12">حلول مصممة للنمو</h2>
+                    <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <div class="bg-white p-10 rounded-[40px] shadow-xl border border-primary-100 text-right relative">
+                            <div class="absolute top-6 left-10">
+                                <span class="bg-primary-50 text-primary-600 px-4 py-1 rounded-full text-xs font-bold">الأكثر طلباً</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">الطبيب الذكي</h3>
+                            <p class="text-slate-400 mb-8 font-light">مثالي للعيادات الخاصة</p>
+                            <ul class="space-y-4 mb-10 text-slate-600 text-sm">
+                                <li class="flex items-center gap-3">✅ أتمتة كاملة للمواعيد</li>
+                                <li class="flex items-center gap-3">✅ مكتبة التعليم الطبي (Gems)</li>
+                                <li class="flex items-center gap-3">✅ ربط مباشر مع Chatwoot</li>
+                            </ul>
+                            <button class="w-full py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-slate-900 transition-all">ابدأ الفترة التجريبية</button>
+                        </div>
+                        <div class="bg-slate-900 p-10 rounded-[40px] text-white text-right shadow-2xl">
+                            <h3 class="text-2xl font-bold mb-2">المؤسسات الكبرى</h3>
+                            <p class="text-slate-400 mb-8 font-light">للمستشفيات والمراكز المتعددة</p>
+                            <ul class="space-y-4 mb-10 text-slate-300 text-sm">
+                                <li class="flex items-center gap-3">✨ تحليل بيانات المرضى الكبرى (Big Data)</li>
+                                <li class="flex items-center gap-3">✨ تكامل مع أنظمة المستشفيات (HIS)</li>
+                                <li class="flex items-center gap-3">✨ دعم فني VIP على مدار الساعة</li>
+                            </ul>
+                            <button class="w-full py-4 bg-white text-slate-900 rounded-2xl font-bold hover:bg-primary-500 hover:text-white transition-all">تواصل مع فريق المبيعات</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center opacity-70">
+            <p class="text-sm">© 2026 Sihatech. الذكاء الاصطناعي في خدمة الصحة.</p>
+            <div class="flex gap-6 text-xs mt-4 md:mt-0 font-bold uppercase tracking-widest">
+                <a href="#">الخصوصية</a>
+                <a href="#">الشروط</a>
+                <a href="#">دعم</a>
             </div>
-        </footer>
-    </div>
-
-    <script>
-        const content = {
-            en: {
-                dir: 'ltr',
-                nav: { home: "Home", features: "Solutions", pricing: "Clinics", contact: "Contact", cta: "Book Demo" },
-                hero: { badge: "Smart Medical Education Platform", title: "Empowering Clinics & Patients Through Knowledge", subtitle: "An integrated system for health education, appointment management, and secure doctor-patient communication.", cta1: "Start Journey", cta2: "Watch Demo" },
-                feat: { f1: "Vital Tracking", f2: "Medical Library", f3: "Video Consult", f4: "Patient Manager" },
-                serv: { title: "Clinic & Center Plans", sub: "Flexible solutions for private clinics, medical centers, and teaching hospitals.", mt: "Digital Clinic", mp: "For Independent Doctors", md: "Ideal for doctors wanting to provide educational content and monitor patients remotely.", ml: ["Electronic Patient Records", "Educational Video Library", "Smart Booking System"], mc: "Start Free Trial", st: "Medical Institutions", sp: "Hospitals & Centers", sd: "Advanced solutions for CME, department management, and patient data analytics.", sl: ["Staff & Patient Portal", "HIS Integration", "Full Support & Customization"], sc: "Contact Sales" },
-                con: { title: "Get in Touch", sub: "Our medical and technical team is ready to answer your inquiries.", n: "Full Name", e: "Clinic Email", m: "Inquiry Details", s: "Send Request", ok: "Success! A medical consultant will contact you soon." },
-                foot: { desc: "Committed to improving patient experience through technology and trusted medical education.", r: "© 2026 MediCare Health. All rights reserved." }
-            },
-            ar: {
-                dir: 'rtl',
-                nav: { home: "الرئيسية", features: "الحلول", pricing: "العيادات", contact: "تواصل معنا", cta: "احجز استشارة" },
-                hero: { badge: "منصة التعليم الطبي الذكية", title: "تمكين العيادات والمرضى من خلال المعرفة", subtitle: "نظام متكامل للتثقيف الصحي، إدارة المواعيد، والتواصل الآمن بين الطبيب والمريض. ارتقِ برعاية مرضاك اليوم.", cta1: "ابدأ رحلتك", cta2: "شاهد عرض توضيحي" },
-                feat: { f1: "متابعة حيوية", f2: "مكتبة طبية", f3: "استشارات فيديو", f4: "إدارة المرضى" },
-                serv: { title: "باقات العيادات والمراكز", sub: "حلول مرنة تناسب العيادات الخاصة، المراكز الطبية، والمستشفيات التعليمية.", mt: "العيادة الرقمية", mp: "للأطباء المستقلين", md: "مثالية للأطباء الذين يرغبون في تقديم محتوى تعليمي ومتابعة مرضاهم عن بعد.", ml: ["ملفات مرضى إلكترونية", "مكتبة فيديو تعليمية", "نظام حجز مواعيد ذكي"], mc: "ابدأ التجربة المجانية", st: "المؤسسات الطبية", sp: "للمستشفيات والمراكز", sd: "حلول متقدمة للتعليم الطبي المستمر، إدارة الأقسام، وتحليلات بيانات المرضى.", sl: ["بوابة تعليمية للموظفين والمرضى", "تكامل مع أنظمة HIS", "دعم فني وتخصيص كامل"], sc: "تواصل مع المبيعات" },
-                con: { title: "تواصل معنا", sub: "فريقنا الطبي والتقني جاهز للإجابة على استفساراتكم حول المنصة والخدمات التعليمية.", n: "الاسم الكامل", e: "البريد الإلكتروني للعيادة", m: "تفاصيل الاستفسار", s: "إرسال الطلب", ok: "تم الاستلام! سيقوم أحد مستشارينا بالتواصل معك قريباً." },
-                foot: { desc: "نلتزم بتحسين تجربة المريض من خلال التكنولوجيا والتعليم الطبي الموثوق.", r: "© 2026 MediCare Health. جميع الحقوق محفوظة." }
-            },
-            fr: {
-                dir: 'ltr',
-                nav: { home: "Accueil", features: "Solutions", pricing: "Cliniques", contact: "Contact", cta: "Démo" },
-                hero: { badge: "Plateforme d'Éducation Médicale", title: "Autonomiser les Cliniques et les Patients", subtitle: "Un système intégré pour l'éducation sanitaire, la gestion des rendez-vous et la communication sécurisée.", cta1: "Commencer", cta2: "Voir la Démo" },
-                feat: { f1: "Suivi Vital", f2: "Bibliothèque", f3: "Vidéo Consult", f4: "Gestion Patients" },
-                serv: { title: "Plans Cliniques", sub: "Solutions flexibles pour cabinets privés et hôpitaux.", mt: "Clinique Numérique", mp: "Pour Médecins Indépendants", md: "Idéal pour fournir du contenu éducatif et suivre les patients à distance.", ml: ["Dossiers Patients Électroniques", "Vidéothèque Éducative", "Réservation Intelligente"], mc: "Essai Gratuit", st: "Institutions Médicales", sp: "Hôpitaux & Centres", sd: "Solutions avancées pour la formation continue et l'analyse de données.", sl: ["Portail Staff & Patients", "Intégration HIS", "Support Complet"], sc: "Contacter Ventes" },
-                con: { title: "Contactez-nous", sub: "Notre équipe médicale et technique est là pour vous.", n: "Nom Complet", e: "Email Pro", m: "Détails", s: "Envoyer", ok: "Succès ! Un consultant vous contactera bientôt." },
-                foot: { desc: "Engagés à améliorer l'expérience patient via la technologie.", r: "© 2026 MediCare Health. Tous droits réservés." }
-            }
-        };
-
-        let currentLang = 'ar';
-        let currentView = 'home';
-
-        function setLang(l) {
-            currentLang = l;
-            const t = content[l];
-            document.documentElement.lang = l;
-            document.documentElement.dir = t.dir;
-            document.body.className = t.dir === 'rtl' ? 'rtl bg-white text-slate-800' : 'ltr bg-white text-slate-800';
-
-            // Nav
-            document.getElementById('nav-home').innerText = t.nav.home;
-            document.getElementById('nav-features').innerText = t.nav.features;
-            document.getElementById('nav-services').innerText = t.nav.pricing;
-            document.getElementById('nav-contact').innerText = t.nav.contact;
-            document.getElementById('nav-cta').innerText = t.nav.cta;
-            
-            // Hero
-            document.getElementById('hero-badge').innerText = t.hero.badge;
-            document.getElementById('hero-title').innerText = t.hero.title;
-            document.getElementById('hero-subtitle').innerText = t.hero.subtitle;
-            document.getElementById('hero-cta-primary').innerText = t.hero.cta1;
-            document.getElementById('hero-cta-secondary').innerText = t.hero.cta2;
-
-            // Features (Icons Text)
-            document.getElementById('feat-1').innerText = t.feat.f1;
-            document.getElementById('feat-2').innerText = t.feat.f2;
-            document.getElementById('feat-3').innerText = t.feat.f3;
-            document.getElementById('feat-4').innerText = t.feat.f4;
-
-            // Services
-            document.getElementById('serv-title').innerText = t.serv.title;
-            document.getElementById('serv-subtitle').innerText = t.serv.sub;
-            document.getElementById('serv-m-title').innerText = t.serv.mt;
-            document.getElementById('serv-m-price').innerText = t.serv.mp;
-            document.getElementById('serv-m-desc').innerText = t.serv.md;
-            document.getElementById('serv-m-cta').innerText = t.serv.mc;
-            document.getElementById('serv-m-list').innerHTML = t.serv.ml.map(item => `<li class="flex items-center gap-3"><span class="text-primary-500">✓</span> ${item}</li>`).join('');
-
-            document.getElementById('serv-s-title').innerText = t.serv.st;
-            document.getElementById('serv-s-price').innerText = t.serv.sp;
-            document.getElementById('serv-s-desc').innerText = t.serv.sd;
-            document.getElementById('serv-s-cta').innerText = t.serv.sc;
-            document.getElementById('serv-s-list').innerHTML = t.serv.sl.map(item => `<li class="flex items-center gap-3"><span class="text-primary-500">✓</span> ${item}</li>`).join('');
-
-            // Contact
-            document.getElementById('con-title').innerText = t.con.title;
-            document.getElementById('con-subtitle').innerText = t.con.sub;
-            document.getElementById('label-name').innerText = t.con.n;
-            document.getElementById('label-email').innerText = t.con.e;
-            document.getElementById('label-msg').innerText = t.con.m;
-            document.getElementById('btn-send').innerText = t.con.s;
-            document.getElementById('txt-success').innerText = t.con.ok;
-
-            // Footer
-            document.getElementById('footer-desc').innerText = t.foot.desc;
-            document.getElementById('footer-rights').innerText = t.foot.r;
-
-            // Language Btn Styling
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.className = `lang-btn ${btn.classList.contains('en') ? 'en' : btn.classList.contains('ar') ? 'ar' : 'fr'} px-3 py-1 rounded-full text-xs font-bold uppercase transition-all text-slate-400 hover:text-primary-600`;
-            });
-            const activeBtn = document.querySelector(`.lang-btn.${l}`);
-            activeBtn.classList.remove('text-slate-400');
-            activeBtn.classList.add('bg-white', 'text-primary-600', 'shadow-sm');
-        }
-
-        function setView(v) {
-            currentView = v;
-            document.getElementById('home-view').classList.toggle('hidden', v !== 'home');
-            document.getElementById('contact-view').classList.toggle('hidden', v !== 'contact');
-            
-            const navHome = document.getElementById('nav-home');
-            const navContact = document.getElementById('nav-contact');
-            
-            navHome.classList.toggle('text-primary-600', v === 'home');
-            navHome.classList.toggle('text-slate-900', v !== 'home');
-            
-            navContact.classList.toggle('text-primary-600', v === 'contact');
-            navContact.classList.toggle('text-slate-500', v !== 'contact');
-            
-            window.scrollTo(0, 0);
-        }
-
-        function toggleMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
-
-        function handleContact(e) {
-            e.preventDefault();
-            document.getElementById('contact-form').classList.add('hidden');
-            document.getElementById('form-success').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('contact-form').classList.remove('hidden');
-                document.getElementById('form-success').classList.add('hidden');
-                document.getElementById('contact-form').reset();
-            }, 5000);
-        }
-        
-        // Initialize with default content to ensure lists are rendered correctly
-        setLang('ar');
-    </script>
+        </div>
+    </footer>
 
     <script>
       (function(d,t) {
