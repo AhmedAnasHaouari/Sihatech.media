@@ -32,14 +32,20 @@
             -webkit-text-fill-color: transparent;
         }
         .ai-glow { box-shadow: 0 0 25px rgba(14, 165, 233, 0.1); }
-        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         html { scroll-behavior: smooth; }
         .hero-shape { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        
+        /* Texture de fond subtile */
+        .bg-grid-slate {
+            background-size: 40px 40px;
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+        }
     </style>
 </head>
-<body class="bg-[#fcfdfe] text-slate-800">
+<body class="bg-[#fcfdfe] text-slate-800 font-sans">
 
-    <nav class="fixed w-full z-50 glass border-b border-slate-100">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 border-b border-transparent">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
@@ -53,7 +59,7 @@
                     <a href="#" class="text-primary-600 font-bold">الرئيسية</a>
                     <a href="#features" class="hover:text-primary-600 transition-colors">لماذا نحن؟</a>
                     <a href="#services" class="hover:text-primary-600 transition-colors">الحلول الذكية</a>
-                    <a href="#contact" class="bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-primary-600 transition-all shadow-md">اطلب عرضاً تجريبياً</a>
+                    <button onclick="window.$chatwoot.toggle()" class="bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-primary-600 transition-all shadow-md">اطلب عرضاً تجريبياً</button>
                     
                     <div class="flex items-center bg-slate-100 rounded-full px-1 py-1">
                         <button class="px-3 py-1 rounded-full text-xs font-bold bg-white shadow-sm text-primary-600">AR</button>
@@ -66,9 +72,10 @@
     </nav>
 
     <main>
-        <section class="pt-40 pb-24 px-4 relative overflow-hidden">
-            <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-100/50 rounded-full blur-3xl -z-10"></div>
-            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <section class="pt-40 pb-24 px-4 relative overflow-hidden bg-grid-slate">
+            <div class="absolute inset-0 bg-gradient-to-b from-primary-50/50 to-transparent pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
                 <div class="text-right">
                     <span class="inline-block px-4 py-1.5 rounded-full bg-primary-50 text-primary-600 text-xs font-bold mb-6 border border-primary-100">مستقبل الطب الذكي في تونس 🇹🇳</span>
                     <h1 class="text-5xl md:text-7xl font-black text-slate-900 leading-tight mb-8">
@@ -78,17 +85,53 @@
                         منصة شاملة للأطباء لأتمتة إدارة المواعيد، الترويج للنشاط الطبي، وتثقيف المرضى بـ "فيديوهات ذكية" بالدارجة التونسية.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <button class="px-10 py-4 bg-primary-600 text-white rounded-2xl font-bold shadow-xl shadow-primary-500/30 hover:-translate-y-1 transition-all">ابدأ الأتمتة الآن</button>
+                        <button onclick="window.$chatwoot.toggle()" class="px-10 py-4 bg-primary-600 text-white rounded-2xl font-bold shadow-xl shadow-primary-500/30 hover:-translate-y-1 transition-all">ابدأ الأتمتة الآن</button>
                         <button class="px-10 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-slate-600 hover:bg-slate-50 transition-all">شاهد كيف يعمل</button>
                     </div>
                 </div>
+                
                 <div class="relative">
-                    <div class="hero-shape absolute inset-0 bg-primary-500 opacity-10 animate-pulse"></div>
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" alt="Sihatech AI" class="rounded-3xl shadow-2xl relative z-10 border-8 border-white">
-                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl z-20 border border-slate-50">
-                        <p class="text-slate-400 text-xs font-bold mb-1 uppercase tracking-tighter">توفير الوقت</p>
-                        <p class="text-3xl font-black text-primary-600">+40%</p>
-                        <p class="text-slate-500 text-[10px]">زيادة في كفاءة العيادة</p>
+                     <div class="absolute inset-0 bg-gradient-to-tr from-primary-500 to-accent opacity-20 blur-3xl rounded-full animate-pulse"></div>
+
+                    <div class="relative z-10 bg-white p-4 rounded-[2rem] shadow-2xl border border-slate-100 max-w-sm mx-auto transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
+                        <div class="flex items-center gap-4 border-b border-slate-50 pb-4 mb-4">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center text-2xl">👨‍⚕️</div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">الدكتور الذكي</h4>
+                                <p class="text-xs text-slate-400">متاح 24/7 • يرد فوراً</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 text-sm font-medium">
+                            <div class="flex gap-3 flex-row-reverse">
+                                <div class="bg-primary-50 text-primary-700 px-4 py-2 rounded-2xl rounded-tl-none max-w-[85%] text-right">
+                                    عندي وجيعة في راسي وقلق، شنوا نجم نعمل؟
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <div class="bg-slate-50 text-slate-600 px-4 py-3 rounded-2xl rounded-tr-none max-w-[90%] shadow-sm border border-slate-100 text-right">
+                                    <p class="mb-2">مرحباً بيك. لاباس عليك. 😊</p>
+                                    <p>بناءً على الأعراض، ينجم يكون إرهاق أو شقيقة. هل الوجيعة مصحوبة بغثيان؟</p>
+                                    <div class="mt-3 flex gap-2 justify-end flex-wrap">
+                                        <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs text-primary-600 cursor-pointer hover:bg-primary-50">أي، فما غثيان</span>
+                                        <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs text-primary-600 cursor-pointer hover:bg-primary-50">لا، وجيعة كهو</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-50 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                            </div>
+                            <div class="flex-1 bg-slate-50 h-10 rounded-full px-4 text-xs text-slate-400 flex items-center text-right" dir="rtl">
+                                اكتب سؤالك هنا...
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,8 +191,9 @@
                                 ربط مباشر مع منصة Chatwoot للدعم
                             </li>
                         </ul>
-                        <button class="w-full py-5 bg-primary-600 text-white rounded-2xl font-bold shadow-lg shadow-primary-500/30 hover:bg-slate-900 transition-all">ابدأ الفترة التجريبية</button>
+                        <button onclick="window.$chatwoot.toggle()" class="w-full py-5 bg-primary-600 text-white rounded-2xl font-bold shadow-lg shadow-primary-500/30 hover:bg-slate-900 transition-all">ابدأ الفترة التجريبية</button>
                     </div>
+                    
                     <div class="bg-slate-900 p-12 rounded-[3rem] text-white text-right shadow-2xl relative overflow-hidden group hover:scale-[1.02] transition-transform">
                         <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
                         <h3 class="text-3xl font-black mb-2">المؤسسات الكبرى</h3>
@@ -168,7 +212,7 @@
                                 تحليلات البيانات الكبرى لتطوير الأداء
                             </li>
                         </ul>
-                        <button class="w-full py-5 bg-white text-slate-900 rounded-2xl font-bold hover:bg-primary-500 hover:text-white transition-all">تواصل مع المبيعات</button>
+                        <button onclick="window.$chatwoot.toggle()" class="w-full py-5 bg-white text-slate-900 rounded-2xl font-bold hover:bg-primary-500 hover:text-white transition-all">تواصل مع المبيعات</button>
                     </div>
                 </div>
             </div>
@@ -211,7 +255,20 @@
         </div>
     </footer>
 
+    <div class="fixed bottom-4 left-4 right-4 z-40 md:hidden animate-bounce-slow">
+        <button onclick="window.$chatwoot.toggle()" class="w-full flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl shadow-2xl shadow-slate-900/40 backdrop-blur-md bg-opacity-95 border border-white/10">
+            <div class="text-right">
+                <p class="font-bold text-sm">ابدأ رحلة الأتمتة</p>
+                <p class="text-xs text-slate-400">جرب SihaTech مجاناً</p>
+            </div>
+            <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+            </div>
+        </button>
+    </div>
+
     <script>
+      // 1. CHATWOOT CONFIGURATION
       (function(d,t) {
         var BASE_URL="https://chatwoot.media.sihatech.net";
         var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
@@ -225,6 +282,18 @@
           })
         }
       })(document,"script");
+
+      // 2. STICKY HEADER EFFECT
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 10) {
+            navbar.classList.add('glass', 'border-slate-100', 'shadow-sm');
+            navbar.classList.remove('border-transparent');
+        } else {
+            navbar.classList.remove('glass', 'border-slate-100', 'shadow-sm');
+            navbar.classList.add('border-transparent');
+        }
+      });
     </script>
 </body>
 </html>
